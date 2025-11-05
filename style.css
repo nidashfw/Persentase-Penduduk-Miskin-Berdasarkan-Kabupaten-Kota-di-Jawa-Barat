@@ -328,8 +328,8 @@ footer {
 
 .insight {
   margin-top: 25px;
-  background: #f0fdfa;              /* hijau muda lembut */
-  border-left: 6px solid #2b7a78;   /* aksen kiri */
+  background: #f0fdfa;
+  border-left: 6px solid #2b7a78;
   border-radius: 10px;
   padding: 16px 20px;
   color: #0b3d3b;
@@ -368,7 +368,7 @@ footer {
 .chart-wrapper canvas {
   width: 100% !important;
   height: auto !important;
-  aspect-ratio: 1 / 1 !important; 
+  aspect-ratio: 1 / 1 !important;
   max-width: 450px;
   max-height: 450px;
 }
@@ -441,3 +441,16 @@ footer {
   }
 }
 
+.chart-container canvas {
+  width: 100% !important;
+  height: auto !important;
+  min-height: 350px;
+  max-height: 500px;
+  display: block;
+  margin: 0 auto;
+}
+
+.chartjs-legend ul {
+  flex-wrap: wrap;
+  justify-content: center;
+}
