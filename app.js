@@ -9,7 +9,6 @@ fetch("data_kemiskinan_jabar_2010_2024.json")
     data = json;
     initApp();
 
-    // ✅ Insight awal setelah data siap
     const tahunPertama = [...new Set(data.map((d) => d.tahun))].sort((a, b) => a - b)[0];
     updateInsight(tahunPertama);
   })
@@ -171,30 +170,48 @@ function buatGrafik(tahun, kabupaten) {
   const values = perTahun.map((d) => d.persentase_miskin);
 
   const options = {
-    responsive: true,
-    maintainAspectRatio: visualType === "pie" ? false : true,
-    aspectRatio: visualType === "pie" ? 1 : 2,
-    plugins: { legend: { display: visualType === "pie" } },
-    scales: visualType === "pie" ? {} : {
-      x: {
-        ticks: {
-          autoSkip: true,
-          maxTicksLimit: window.innerWidth < 768 ? 5 : 15,
-          maxRotation: 70,
-          minRotation: 30,
-          font: { size: window.innerWidth < 768 ? 9 : 11 },
-        },
-      },
-      y: {
-        beginAtZero: true,
-        ticks: {
-          font: { size: window.innerWidth < 768 ? 10 : 12 },
-        },
-      },
+  responsive: true,
+  maintainAspectRatio: true,
+  aspectRatio:
+    visualType === "pie"
+      ? 1 
+      : window.innerWidth < 768
+      ? 1.1 
+      : 1.7, 
+
+  plugins: {
+    legend: {
+      display: visualType === "pie",
+      position: "bottom",
+      labels: { boxWidth: 15, font: { size: 11 } },
     },
-    interaction: { mode: "nearest", intersect: false },
-    animation: { duration: 1000, easing: "easeOutQuart" },
-  };
+    tooltip: { enabled: true },
+  },
+
+  scales:
+    visualType === "pie"
+      ? {}
+      : {
+          x: {
+            ticks: {
+              autoSkip: true,
+              maxTicksLimit: window.innerWidth < 768 ? 5 : 15,
+              maxRotation: 70,
+              minRotation: 30,
+              font: { size: window.innerWidth < 768 ? 9 : 11 },
+            },
+          },
+          y: {
+            beginAtZero: true,
+            ticks: {
+              font: { size: window.innerWidth < 768 ? 10 : 12 },
+            },
+          },
+        },
+
+  interaction: { mode: "nearest", intersect: false },
+  animation: { duration: 1000, easing: "easeOutQuart" },
+};
 
   window.chartInstance = new Chart(ctx, {
     type: visualType,
@@ -213,7 +230,6 @@ function buatGrafik(tahun, kabupaten) {
     options,
   });
 
-  // ✅ Insight untuk diagram batang & pie
   const rata2 = (
     perTahun.reduce((sum, d) => sum + d.persentase_miskin, 0) / perTahun.length
   ).toFixed(2);
@@ -265,8 +281,24 @@ function buatLineChart() {
     },
     options: {
       responsive: true,
-      scales: { y: { beginAtZero: true } },
+      maintainAspectRatio: true,
+      aspectRatio: window.innerWidth < 768 ? 1.1 : 1.8, 
+      scales: {
+        y: { beginAtZero: true },
+        x: {
+          ticks: {
+            font: { size: window.innerWidth < 768 ? 9 : 11 },
+          },
+        },
+      },
       animation: { duration: 1000, easing: "easeOutCubic" },
+      plugins: {
+        legend: {
+          display: true,
+          position: "bottom",
+          labels: { font: { size: 11 } },
+        },
+      },
     },
   });
 }
