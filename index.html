@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Visualisasi Data Kemiskinan Jawa Barat (2010–2024)</title>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <header class="reveal">
+    <h1>Visualisasi Data Kemiskinan Kabupaten/Kota di Jawa Barat (2010–2024)</h1>
+    <p>Pilih tahun, kabupaten/kota, dan jenis diagram untuk melihat data kemiskinan secara interaktif.</p>
+  </header>
+
+  <div id="loading-screen">
+    <div class="loader"></div>
+    <p>Loading Data...</p>
+  </div>
+
+  <section class="dropdown-container reveal">
+    <label for="tahun">Pilih Tahun:</label>
+    <select id="tahun"></select>
+
+    <label for="kabupaten">Pilih Kabupaten/Kota:</label>
+    <select id="kabupaten">
+      <option value="all">Semua Kabupaten/Kota</option>
+    </select>
+
+    <label for="visual">Pilih Diagram:</label>
+    <select id="visual">
+      <option value="bar">Diagram Batang</option>
+      <option value="pie">Diagram Pie</option>
+    </select>
+  </section>
+
+  <section id="stats" class="stats-container reveal">
+    <div class="stat-card">
+      <h3>Rata-rata</h3>
+      <p id="avg">-</p>
+    </div>
+    <div class="stat-card">
+      <h3>Tertinggi</h3>
+      <p id="high">-</p>
+    </div>
+    <div class="stat-card">
+      <h3>Terendah</h3>
+      <p id="low">-</p>
+    </div>
+  </section>
+
+  <section id="map-section" class="reveal">
+    <div class="map-container">
+      <h2>Peta Persebaran Kemiskinan per Kabupaten/Kota</h2>
+      <div id="map"></div>
+      <p id="map-insight" class="insight"></p>
+    </div>
+  </section>
+
+  <section class="chart-container reveal">
+    <h2>Visualisasi Diagram</h2>
+    <div class="chart-wrapper">
+      <canvas id="chart"></canvas>
+    </div>
+    <p id="chart-insight" class="insight"></p>
+  </section>
+
+  <section class="chart-container reveal">
+    <h2>Tren Rata-rata Kemiskinan (2010–2024)</h2>
+    <canvas id="lineChart"></canvas>
+    <p id="insight-text" class="insight"></p>
+  </section>
+
+  <footer class="reveal">
+    <p>© 2025 | Visualisasi Data Kemiskinan Jawa Barat oleh Nida Shofwatunnisa</p>
+  </footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+  <script src="app.js"></script>
+
+  <script>
+    // Animasi loading
+    window.addEventListener("load", () => {
+      const loader = document.getElementById("loading-screen");
+      setTimeout(() => {
+        loader.style.opacity = "0";
+        loader.style.transition = "opacity 0.6s ease";
+        setTimeout(() => loader.style.display = "none", 600);
+      }, 1000);
+    });
+
+    // Efek muncul (reveal)
+    const reveals = document.querySelectorAll(".reveal");
+    function revealOnScroll() {
+      for (let i = 0; i < reveals.length; i++) {
+        const windowHeight = window.innerHeight;
+        const revealTop = reveals[i].getBoundingClientRect().top;
+        const revealPoint = 120;
+        if (revealTop < windowHeight - revealPoint) {
+          reveals[i].classList.add("active");
+        }
+      }
+    }
+    window.addEventListener("scroll", revealOnScroll);
+    window.addEventListener("load", revealOnScroll);
+  </script>
+</body>
+</html>

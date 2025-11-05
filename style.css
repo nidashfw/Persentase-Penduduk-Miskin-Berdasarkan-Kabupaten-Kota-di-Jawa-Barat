@@ -1,0 +1,407 @@
+/* ====== FONT & GAYA UMUM ====== */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* {
+  font-family: "Poppins", sans-serif;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: #f9fafb;
+  margin: 0;
+  padding: 0;
+  color: #333;
+  overflow-x: hidden;
+  animation: fadeIn 0.8s ease;
+}
+
+/* ===== HEADER MELENGKUNG + SMOOTH GRADIENT ===== */
+header {
+  text-align: center;
+  padding: 35px 20px 50px;
+  background: linear-gradient(135deg, #205a57, #2b7a78, #3aa59d, #6de1d2);
+  background-size: 300% 300%;
+  background-blend-mode: overlay;
+  color: white;
+  position: relative;
+  overflow: hidden;
+  border-bottom-left-radius: 45px;
+  border-bottom-right-radius: 45px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+  animation: gradientShift 12s ease infinite alternate, fadeInDown 1.2s ease;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 2.3em;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+header p {
+  font-weight: 400;
+  margin-top: 5x;
+  opacity: 0.95;
+  font-size: 1em;
+}
+
+/* Smooth gradient anim */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+/* ===== TITLE ===== */
+h2 {
+  color: #2b7a78;
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: 600;
+  font-size: 1.4em;
+  letter-spacing: 0.3px;
+  transition: color 0.3s ease;
+}
+
+h2:hover { color: #205e5c; }
+
+/* ===== DROPDOWN (CENTER + BORDER) ===== */
+.dropdown-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin: 35px auto;
+  padding: 18px 25px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: fit-content;
+  animation: fadeInUp 1s ease forwards;
+  transition: all 0.4s ease;
+}
+
+.dropdown-container:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 18px rgba(43, 122, 120, 0.25);
+  background: linear-gradient(135deg, #ffffff, #f1fffd);
+}
+
+.dropdown-container label {
+  font-weight: 600;
+  color: #17252a;
+}
+
+select {
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  background: white;
+  font-size: 1em;
+  color: #2b7a78;
+  transition: 0.3s;
+}
+
+select:hover {
+  border-color: #2b7a78;
+  box-shadow: 0 0 8px rgba(43, 122, 120, 0.3);
+}
+
+/* ===== KARTU STATISTIK ===== */
+.stats-container {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  margin: 10px 0 40px;
+  flex-wrap: wrap;
+}
+
+.stat-card {
+  background: white;
+  border-radius: 15px;
+  padding: 25px 35px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: all 0.4s ease;
+  min-width: 160px;
+  animation: fadeInUp 0.8s ease forwards;
+}
+
+.stat-card:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 8px 20px rgba(43, 122, 120, 0.3);
+  background: linear-gradient(135deg, #ffffff, #e6fffa);
+}
+
+.stat-card h3 {
+  margin: 0;
+  color: #2b7a78;
+  font-size: 1.1em;
+  font-weight: 500;
+}
+
+.stat-card p {
+  font-size: 1.7em;
+  font-weight: 700;
+  color: #17252a;
+  margin-top: 5px;
+}
+
+/* ===== PETA ===== */
+.map-container {
+  background: white;
+  border-radius: 15px;
+  padding: 25px 30px 35px 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  width: 90%;
+  max-width: 950px;
+  margin: 40px auto;
+  text-align: center;
+  animation: fadeInUp 1s ease forwards;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.map-container:hover {
+  transform: scale(1.01);
+  box-shadow: 0 6px 18px rgba(43, 122, 120, 0.25);
+}
+
+#map {
+  height: 500px;
+  width: 100%;
+  border: 4px solid #2b7a78;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  transition: transform 0.4s ease;
+  margin-top: 20px;
+}
+
+/* ===== GRAFIK ===== */
+.chart-container {
+  width: 95%;
+  max-width: 900px;
+  margin: 40px auto;
+  background: white;
+  border-radius: 15px;
+  padding: 15px 20px 25px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.chart-container h2 {
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #2b7a78;
+  font-size: 1.3em;
+}
+
+.chart-container canvas {
+  width: 100% !important;
+  height: auto !important;
+  aspect-ratio: 16 / 9;
+  display: block;
+}
+
+/* ===== FOOTER MELENGKUNG ===== */
+footer {
+  text-align: center;
+  background: linear-gradient(135deg, #205a57, #2b7a78, #3aa59d, #6de1d2);
+  background-size: 300% 300%;
+  background-blend-mode: overlay;
+  color: white;
+  padding: 22px 20px 28px;
+  margin-top: 40px;
+  font-size: 0.9em;
+  letter-spacing: 0.3px;
+  position: relative;
+  overflow: hidden;
+  border-top-left-radius: 45px;
+  border-top-right-radius: 45px;
+  box-shadow: 0 -3px 15px rgba(0, 0, 0, 0.25);
+  animation: gradientShift 12s ease infinite alternate;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .stats-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .stat-card {
+    width: 80%;
+  }
+
+  header h1 { font-size: 1.3em; }
+  header p { font-size: 0.95em; }
+
+  h2 { font-size: 1.1em; }
+
+  #map { height: 400px; }
+
+  .dropdown-container {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .chart-container canvas {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+/* ===== LEGENDA PETA (versi lebih kecil & rapi) ===== */
+.legend {
+  line-height: 16px;
+  color: #333;
+  background: white;
+  padding: 8px 12px;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+  font-size: 0.8em;
+  font-family: "Poppins", sans-serif;
+  opacity: 0.95;
+  width: 110px;
+}
+
+.legend h4 {
+  margin: 0 0 6px;
+  font-size: 0.9em;
+  font-weight: 600;
+  color: #2b7a78;
+  text-align: center;
+  border-bottom: 1.5px solid #2b7a78;
+  padding-bottom: 3px;
+}
+
+.legend i {
+  width: 16px;
+  height: 12px;
+  float: left;
+  margin-right: 6px;
+  opacity: 0.9;
+  border-radius: 3px;
+}
+
+/* ===== ANIMASI ===== */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ===== LOADING SCREEN ===== */
+#loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #2b7a78, #3aa59d);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 9999;
+  color: white;
+  font-family: "Poppins", sans-serif;
+  animation: fadeIn 0.6s ease;
+}
+
+.loader {
+  border: 6px solid rgba(255, 255, 255, 0.3);
+  border-top: 6px solid white;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1.2s linear infinite;
+  margin-bottom: 15px;
+}
+
+#loading-screen p {
+  font-size: 1.2em;
+  letter-spacing: 1px;
+  font-weight: 500;
+}
+
+/* ====== INSIGHT TEKS (otomatis di bawah peta & grafik) ====== */
+.insight {
+  margin-top: 25px;
+  background: #f0fdfa;              /* hijau muda lembut */
+  border-left: 6px solid #2b7a78;   /* aksen kiri */
+  border-radius: 10px;
+  padding: 16px 20px;
+  color: #0b3d3b;
+  font-size: 1em;
+  line-height: 1.6;
+  text-align: justify;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.4s ease;
+}
+
+/* Saat aktif, insight muncul dengan animasi halus */
+.insight.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Responsif */
+@media (max-width: 768px) {
+  .insight {
+    font-size: 0.95em;
+    padding: 14px 16px;
+    text-align: left;
+  }
+}
+/* ====== FIX PIE CHART & LAYOUT CHART ====== */
+
+/* Bungkus chart biar posisi center dan ukuran seimbang */
+.chart-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* Pastikan pie chart bulet sempurna */
+.chart-wrapper canvas {
+  width: 100% !important;
+  height: auto !important;
+  aspect-ratio: 1 / 1 !important;  /* Bikin proporsional bulet */
+  max-width: 450px;
+  max-height: 450px;
+}
+
+/* Saat tampilan kecil, tetap proporsional */
+@media (max-width: 768px) {
+  .chart-wrapper canvas {
+    max-width: 320px;
+    max-height: 320px;
+  }
+}
+
+/* Transisi halus saat hover */
+.chart-container:hover {
+  transform: scale(1.01);
+  box-shadow: 0 8px 20px rgba(43, 122, 120, 0.2);
+}
