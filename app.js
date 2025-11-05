@@ -176,7 +176,7 @@ function buatGrafik(tahun, kabupaten) {
         align: "center",
         labels: {
           boxWidth: 12,
-          padding: 4,
+          padding: 10,
           font: { size: window.innerWidth < 768 ? 9 : 11 },
           color: "#333",
           usePointStyle: true,
@@ -339,3 +339,4 @@ function updateInsight(tahun) {
     setTimeout(() => el.classList.add("show"), 50);
   });
 }
+
