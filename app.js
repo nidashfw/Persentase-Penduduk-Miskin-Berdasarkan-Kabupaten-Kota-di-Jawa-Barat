@@ -2,19 +2,16 @@ let data = [];
 let map;
 let geojsonLayer;
 
-// ====== MEMUAT DATA ======
 fetch("data_kemiskinan_jabar_2010_2024.json")
   .then((response) => response.json())
   .then((json) => {
     data = json;
     initApp();
-
     const tahunPertama = [...new Set(data.map((d) => d.tahun))].sort((a, b) => a - b)[0];
     updateInsight(tahunPertama);
   })
   .catch((error) => console.error("Gagal memuat data:", error));
 
-// ====== INISIALISASI ======
 function initApp() {
   const tahunSelect = document.getElementById("tahun");
   const kabSelect = document.getElementById("kabupaten");
@@ -49,7 +46,6 @@ function initApp() {
   buatStatistik(tahunUnik[0], "all");
 }
 
-// ====== WARNA ======
 function getColor(persen) {
   return persen > 12
     ? "#800026"
@@ -66,7 +62,6 @@ function getColor(persen) {
     : "#FFEDA0";
 }
 
-// ====== GAYA PETA ======
 function style(feature, tahun, kabupatenDipilih) {
   const namaWilayah = feature.properties.VARNAME_2;
   const dataKab = data.find(
@@ -88,7 +83,6 @@ function style(feature, tahun, kabupatenDipilih) {
   };
 }
 
-// ====== TOOLTIP PETA ======
 function onEachFeature(feature, layer, tahun) {
   const namaWilayah = feature.properties.VARNAME_2;
   const dataKab = data.find(
@@ -109,7 +103,6 @@ function onEachFeature(feature, layer, tahun) {
   }
 }
 
-// ====== MEMBUAT PETA ======
 function buatPeta(tahun, kabupaten = "all") {
   if (!map) {
     map = L.map("map").setView([-7.0, 107.6], 8);
@@ -128,7 +121,6 @@ function buatPeta(tahun, kabupaten = "all") {
       }).addTo(map);
     });
 
-  // ===== LEGENDA =====
   if (map && !map._legendAdded) {
     const legend = L.control({ position: "bottomright" });
     legend.onAdd = function () {
@@ -146,7 +138,6 @@ function buatPeta(tahun, kabupaten = "all") {
   }
 }
 
-// ====== UPDATE SAAT FILTER BERUBAH ======
 function updateVisual() {
   const tahunDipilih = parseInt(document.getElementById("tahun").value);
   const kabupatenDipilih = document.getElementById("kabupaten").value;
@@ -157,7 +148,6 @@ function updateVisual() {
   updateInsight(tahunDipilih);
 }
 
-// ====== GRAFIK DINAMIS (BAR & PIE) ======
 function buatGrafik(tahun, kabupaten) {
   const ctx = document.getElementById("chart").getContext("2d");
   const visualType = document.getElementById("visual").value || "bar";
@@ -170,48 +160,52 @@ function buatGrafik(tahun, kabupaten) {
   const values = perTahun.map((d) => d.persentase_miskin);
 
   const options = {
-  responsive: true,
-  maintainAspectRatio: true,
-  aspectRatio:
-    visualType === "pie"
-      ? 1 
-      : window.innerWidth < 768
-      ? 1.1 
-      : 1.7, 
-
-  plugins: {
-    legend: {
-      display: visualType === "pie",
-      position: "bottom",
-      labels: { boxWidth: 15, font: { size: 11 } },
+    responsive: true,
+    maintainAspectRatio: false,
+    aspectRatio: visualType === "pie" ? 1 : window.innerWidth < 768 ? 1.2 : 1.8,
+    layout: {
+      padding:
+        visualType === "pie"
+          ? { top: 10, bottom: 20 }
+          : { top: 10, bottom: 10 },
     },
-    tooltip: { enabled: true },
-  },
-
-  scales:
-    visualType === "pie"
-      ? {}
-      : {
-          x: {
-            ticks: {
-              autoSkip: true,
-              maxTicksLimit: window.innerWidth < 768 ? 5 : 15,
-              maxRotation: 70,
-              minRotation: 30,
-              font: { size: window.innerWidth < 768 ? 9 : 11 },
-            },
-          },
-          y: {
-            beginAtZero: true,
-            ticks: {
-              font: { size: window.innerWidth < 768 ? 10 : 12 },
-            },
-          },
+    plugins: {
+      legend: {
+        display: visualType === "pie",
+        position: visualType === "pie" ? "top" : "bottom",
+        align: "center",
+        labels: {
+          boxWidth: 12,
+          padding: 4,
+          font: { size: window.innerWidth < 768 ? 9 : 11 },
+          color: "#333",
+          usePointStyle: true,
         },
-
-  interaction: { mode: "nearest", intersect: false },
-  animation: { duration: 1000, easing: "easeOutQuart" },
-};
+      },
+      tooltip: { enabled: true },
+    },
+    scales:
+      visualType === "pie"
+        ? {}
+        : {
+            x: {
+              ticks: {
+                autoSkip: false,
+                maxRotation: window.innerWidth < 768 ? 75 : 60,
+                minRotation: window.innerWidth < 768 ? 60 : 40,
+                font: { size: window.innerWidth < 768 ? 8 : 10 },
+              },
+            },
+            y: {
+              beginAtZero: true,
+              ticks: {
+                font: { size: window.innerWidth < 768 ? 10 : 12 },
+              },
+            },
+          },
+    interaction: { mode: "nearest", intersect: false },
+    animation: { duration: 1000, easing: "easeOutQuart" },
+  };
 
   window.chartInstance = new Chart(ctx, {
     type: visualType,
@@ -252,7 +246,6 @@ function buatGrafik(tahun, kabupaten) {
   }
 }
 
-// ====== GRAFIK GARIS ======
 function buatLineChart() {
   const ctx = document.getElementById("lineChart").getContext("2d");
   if (window.lineChartInstance) window.lineChartInstance.destroy();
@@ -282,7 +275,7 @@ function buatLineChart() {
     options: {
       responsive: true,
       maintainAspectRatio: true,
-      aspectRatio: window.innerWidth < 768 ? 1.1 : 1.8, 
+      aspectRatio: window.innerWidth < 768 ? 1.1 : 1.8,
       scales: {
         y: { beginAtZero: true },
         x: {
@@ -303,7 +296,6 @@ function buatLineChart() {
   });
 }
 
-// ====== STATISTIK ======
 function buatStatistik(tahun, kabupaten) {
   let dataTahun = data.filter((d) => d.tahun === tahun);
   if (kabupaten !== "all") dataTahun = dataTahun.filter((d) => d.kabupaten === kabupaten);
@@ -318,7 +310,6 @@ function buatStatistik(tahun, kabupaten) {
   document.getElementById("low").textContent = terendah.toFixed(2) + "%";
 }
 
-// ====== INSIGHT UMUM (untuk peta & tren) ======
 function updateInsight(tahun) {
   const dataTahun = data.filter((d) => d.tahun === tahun);
   if (dataTahun.length === 0) return;
